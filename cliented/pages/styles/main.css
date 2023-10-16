@@ -1,0 +1,83 @@
+
+/* styles/tailwind.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* styles/main.css */
+
+*{
+  margin: 0;
+  padding: 0;
+}
+
+body {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    background-color: rgb(5, 4, 15);
+    min-height: 100 vh;
+  
+  
+   
+}
+
+li:hover{
+  background-color: pink;
+  transition: .2s ease-in-out;
+}  
+th,td{
+  width: 30%;
+}
+.aboutme{
+  height: 40px;
+  width: 100px ;
+  
+}
+  .truncate-text {
+    overflow: hidden;        /* Hide any content that overflows the container */
+    text-overflow: ellipsis; /* Display an ellipsis (...) for truncated text */
+    max-height: 80px;        /* Adjust the max height as needed */
+    display: -webkit-box;    /* Required for WebKit (Safari, Chrome) */
+    -webkit-line-clamp: 4;  /* Number of lines to show before truncating */
+    -webkit-box-orient: vertical; /* Vertical layout for lines */
+    word-wrap: break-word;   /* Allow word wrapping */
+    overflow-wrap: break-word; /* Allow word wrapping for browsers that support it */
+  }
+  
+
+.container{
+ 
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+  .join_area{
+   
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+
+  }
+
+  .profile{
+    box-shadow: rgba(124, 120, 120, 0.56) 0px 22px 70px 4px;
+  }
+  
+  .center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .left{
+    float: left;
+  }
+  .right{
+    float: right;
+  }
+  .vertical {
+    width: 2px;
+    height: 400px;
+
+   
+}
