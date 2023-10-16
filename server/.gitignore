@@ -1,0 +1,11 @@
+# Next.js
+.next
+out
+node_modules
+
+
+
+
+# Dependency directories
+pnpm-lock.yaml
+yarn.lock
