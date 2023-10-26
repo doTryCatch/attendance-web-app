@@ -9,20 +9,20 @@ function home() {
   const [Branch,setBranch]=useState('CSE')
   const [Section,setSection]=useState('A')
  
-
  
   useEffect(()=>{
  
     async function fetchData() {
       try {
         const result = await Get();
+        console.log(result)
         const info=result.filter(elem=>elem.branch==Branch&&elem.section==Section)
+        console.log(info)
         info.length>0?setData(info[0].data):setData([]); // Update the state with the fetched data
       } catch (error) {
         console.error("Failed to fetch data:", error);
       }
     }
-   
   fetchData();
 
   

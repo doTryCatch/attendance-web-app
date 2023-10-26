@@ -4,14 +4,28 @@ import { useRouter } from 'next/router';
 import Home from './components/home';
 import Attendence from './components/attendence';
 import Register from './components/register';
+import DynamicPage from './[content]';
 
 function Layout({ children }) {
   const router = useRouter();
   const [activeComponent, setActiveComponent] = useState('Home');
+  const [path,setPath]=useState("/dashboard")
 
   const handleComponentChange = (componentName) => {
     setActiveComponent(componentName);
+    // setPath(componentName)
+    window.history.pushState(null, null, '/dashboard/' + componentName);
   };
+  // if (activeComponent=="Home"){
+  //   router."/Home"
+  // }
+  // }else if(activeComponent=="Register"){
+  //   router.push(router.pathname+"/Register")
+
+  // }else if(activeComponent=="Attendence"){
+  //   router.push(router.pathname+"/Attendence")
+
+  // }
 
   return (
     <>
@@ -31,15 +45,15 @@ function Layout({ children }) {
             </ul>
           </div>
         </div>
-        {router.pathname === '/dashboard' ? (
+        {/* {router.pathname === '/dashboard' ? ( */}
           <div>
-            {activeComponent === 'Home' && <Home />}
+            {activeComponent === 'Home'  && <Home />}
             {activeComponent === 'Attendence' && <Attendence />}
             {activeComponent === 'Register' && <Register />}
           </div>
-        ) : (
+        {/* ) : (
           children
-        )}
+        )} */}
       </section>
     </>
   );

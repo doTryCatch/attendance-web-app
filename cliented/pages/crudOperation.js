@@ -1,4 +1,5 @@
 const url="http://localhost:3001/"
+const url2="/api/data"
 const Update=async (updateData)=>{
     try{
       const res=await fetch(url,{method:'put',
@@ -12,7 +13,7 @@ const Update=async (updateData)=>{
       console.error("Failed to fetch data:", error)
 
     }
-   
+
   }
 
 
@@ -23,8 +24,8 @@ const  Get=async()=> {
   }
   // Fetch data from the server
   try{
-    const res=await fetch(url,{
-      method: 'get',
+    const res=await fetch(url2,{
+      method: 'GET',
 headers: {
 "Content-Type": "application/json",
 "x-access-token": "token-value",
@@ -45,7 +46,7 @@ headers: {
  
     try{
       const res=await fetch(url,{
-        method:"post",
+        method:"POST",
         headers: {
           "Content-Type": "application/json"
         },

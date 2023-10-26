@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react";  
 import { useRouter } from "next/router";
 import { useState } from "react";
 
@@ -7,14 +7,23 @@ export default function Page() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = (e) => {
+
+  const handleLogin =async (e) => {
     e.preventDefault()
-    // Perform your login logic here (e.g., check credentials)
-    // If login is successful, redirect to another page
-    router.push({
-      pathname: "/Dashboard",
-      // Pass the userName as a query parameter
-    });
+    try{
+
+      const response=await fetch("api/login",{
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({username,password})
+
+      })
+      if (response.status==200) console.log("success")
+    }catch(err){
+      console.log(err)
+    }
+    
+   
   };
   const set_username = (e) => {
     setUsername(e.target.value);
@@ -25,6 +34,7 @@ export default function Page() {
 
   const handle_login=(e)=>{
     if (e.code=="Enter") e.click()
+
 
   }
   return (
@@ -40,7 +50,7 @@ export default function Page() {
             <div className="input   ">
               <input
                 type="text"
-                id="room-id"
+            
                 onChange={set_username}
                 className="text-orange-500 w-full px-3 py-2 border-b bg-transparent border-gray-300 focus:outline-none focus:border-blue-500"
                 placeholder="username"
@@ -53,7 +63,7 @@ export default function Page() {
             <div className="input ">
               <input
                 type="text"
-                id="room-id"
+               
                 onChange={set_password}
                 className="w-full px-3 py-2 border-b bg-transparent border-gray-300 focus:outline-none focus:border-blue-500 text-green-600"
                 placeholder=" password"
@@ -77,3 +87,4 @@ export default function Page() {
     </>
   );
 }
+
