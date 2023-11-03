@@ -1,5 +1,6 @@
-const url="http://localhost:3001/"
 const url2="/api/data"
+const url=url2 ||"http://localhost:3001/"
+
 const Update=async (updateData)=>{
     try{
       const res=await fetch(url,{method:'put',

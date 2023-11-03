@@ -1,90 +1,119 @@
-import React from "react";  
-import { useRouter } from "next/router";
-import { useState } from "react";
-
-export default function Page() {
+// components/Layout.js
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import Home from './components/home';
+import Attendence from './components/attendence';
+import Register from './components/register';
+const Cookies =require('js-cookie');
+const JWT=require('jsonwebtoken')
+const SECRET_KEY=process.env.SECRET_KEY;
+// import DynamicPage from './content';
+async function verify(token){
+  var Data;
+  await fetch("/api/verify",{
+    method:"POST",
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  }).then((res)=>{
+    if(res.status==200) return res.json()
+  }).then(data=>Data=data)
+return Data;
+}
+function Layout({ children }) {
   const router = useRouter();
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-
-
-  const handleLogin =async (e) => {
-    e.preventDefault()
+  const [login,setLogin]=useState(false)
+  
+  const [activeComponent, setActiveComponent] = useState('Home');
+  const [path,setPath]=useState("/dashboard")
+ 
+  useEffect(()=>{
+    //try  get  token from cookies or wherever you managed to storage it...
+    // const token=Cookies.get('loginToken')
     try{
-
-      const response=await fetch("api/login",{
-        method:"POST",
-        headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({username,password})
-
-      })
-      if (response.status==200) console.log("success")
+      const Token=localStorage.getItem('token_key')
+      
+      if (Token){
+        const response=verify(Token)
+        setLogin(true)
+        console.log(response)
+        // const info=JWT.verify(token,process.env.SECRET_KEY)
+    
+      }else{
+        router.push("/login")
+      }
+      // console.log(token)
+     
     }catch(err){
-      console.log(err)
+      console.error(err)
+
     }
+
+  
+
     
    
-  };
-  const set_username = (e) => {
-    setUsername(e.target.value);
-  };
-  const set_password = (e) => {
-    setPassword(e.target.value);
-  };
-
-  const handle_login=(e)=>{
-    if (e.code=="Enter") e.click()
-
-
-  }
-  return (
-    <>
+  
+  
+    //if token 
    
-      <section className="login">
-        <div className="login_container space-y-24 md:space-y-10">
-      <div className="input-area bg-slate-100">
-        
-      <form onSubmit={handleLogin} className="bg-slate-100">
-        <div className="bg-slate-900 p-6 rounded-lg shadow-md space-y-4 ">
-          <div className="  center  space-x-1">
-            <div className="input   ">
-              <input
-                type="text"
-            
-                onChange={set_username}
-                className="text-orange-500 w-full px-3 py-2 border-b bg-transparent border-gray-300 focus:outline-none focus:border-blue-500"
-                placeholder="username"
-                required
-              />
-            </div>
-          </div>
+            // verify token and get user data if necessary
+  
+    //else     
+    //  do nothing    
+  
+  },[])
+  const handleComponentChange = (componentName) => {
+    setActiveComponent(componentName);
+    // setPath(componentName)
+    // window.history.pushState(null, null, '/dashboard/' + componentName);
 
-          <div className="center space-x-1">
-            <div className="input ">
-              <input
-                type="text"
-               
-                onChange={set_password}
-                className="w-full px-3 py-2 border-b bg-transparent border-gray-300 focus:outline-none focus:border-blue-500 text-green-600"
-                placeholder=" password"
-                required
-              />
-            </div>
-          </div>
-          <div className="btn_container center">
-          <div className="btn center text-white bg-slate-700 rounded-lg h-10 w-20 hover:scale-125 hover:bg-green-600 duration-100 ease-in-out">
-            <button type="submit" onKeyDown={handle_login}>Enter</button>
-          </div>
-          </div>
-         
+  };
+  // if (activeComponent=="Home"){
+  //   router."/Home"
+  // }
+  // }else if(activeComponent=="Register"){
+  //   router.push(router.pathname+"/Register")
+
+  // }else if(activeComponent=="Attendence"){
+  //   router.push(router.pathname+"/Attendence")
+
+  // }
+
+  return (
+    <>{login?(
+      <section className="dashboard">
+      <div className="navbar flex text-bold bg-slate-500 cursor-pointer my-2 text-white">
+        <div className="list-items">
+          <ul className="flex space-x-6">
+            <li onClick={() => handleComponentChange('Home')}>
+              Home
+            </li>
+            <li onClick={() => handleComponentChange('Attendence')}>
+              Attendence
+            </li>
+            <li onClick={() => handleComponentChange('Register')}>
+              Register
+            </li>
+          </ul>
         </div>
-        
-     
-    </form>
-    </div>
-    </div>
-      </section>
+      </div>
+      {/* {router.pathname === '/dashboard' ? ( */}
+        <div>
+          {activeComponent === 'Home'  && <Home />}
+          {activeComponent === 'Attendence' && <Attendence />}
+          {activeComponent === 'Register' && <Register />}
+        </div>
+      {/* ) : (
+        children
+      )} */}
+    </section>
+    ):(
+      <p>loading</p>
+    )}
+   
     </>
   );
 }
 
+export default Layout;

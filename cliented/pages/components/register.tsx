@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Post } from "../crudOperation";
 
-import Dashboard from "../dashboard";
+import Dashboard from "..";
 
 function register() {
   const [name, setName] = useState("");

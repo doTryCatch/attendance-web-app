@@ -1,6 +1,6 @@
 import React,{useEffect,useState} from 'react'
 import {Get,Post, Update} from "../crudOperation"
-import Dashboard from '../dashboard'
+import Dashboard from '..'
 
 function Attendence() {
     
