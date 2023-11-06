@@ -3,7 +3,7 @@ const url=url2 ||"http://localhost:3001/"
 
 const Update=async (updateData)=>{
     try{
-      const res=await fetch(url,{method:'put',
+      const res=await fetch(url2,{method:'put',
       headers: {
         "Content-Type": "application/json"
       },
@@ -46,7 +46,7 @@ headers: {
   const Post=async(insertData)=>{
  
     try{
-      const res=await fetch(url,{
+      const res=await fetch(url2,{
         method:"POST",
         headers: {
           "Content-Type": "application/json"

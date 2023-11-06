@@ -23,6 +23,7 @@ export default function Page() {
       console.log("fetched")
   
       if (response.status === 200) {
+        router.push("/")
         console.log("response")
         const data = await response.json();
         console.log(data);
@@ -34,7 +35,7 @@ export default function Page() {
     } catch (err) {
       console.error(err);
     }
-    router.push("/")
+
   };
   
   const set_username = (e) => {

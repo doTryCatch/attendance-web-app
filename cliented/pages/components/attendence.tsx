@@ -101,12 +101,12 @@ const handleStatus=(e)=>{
                 
                   <div className="student flex justify-between  m-4" key={index}>
                   <h1 className='w-[40%] bg-orange-400 '>{val.name}</h1>
-                  {val.record.some((elem)=>elem.date===date)?(
+                  {val.record.some((elem,index)=>elem.date===date)?(
                           val.record.map((elem, recordIndex) => {
                             if (elem.date === date) {
                               return (
-                                <div className="status  w-[30%] center h-8">
-                                   <p key={recordIndex}>{elem.status}</p>
+                                <div className="status  w-[30%] center h-8" key={recordIndex}>
+                                   <p >{elem.status}</p>
                                 </div>
                                
                               );
@@ -115,7 +115,7 @@ const handleStatus=(e)=>{
                           })
                   ):(
                     
-                    <div className="btn space-x-6 w-[60%] center h-8">
+                    <div className="btn space-x-6 w-[60%] center h-8" key={index}>
                       <p className='bg-orange-200'>Not Recorded</p>
                     <label className="custom-radio">
                       <input type="radio" name={val.roll} value="present" onChange={handleStatus} />

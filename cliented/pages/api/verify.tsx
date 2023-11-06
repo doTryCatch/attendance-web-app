@@ -8,10 +8,11 @@ export default (req,res)=>{
 
         try{
             const decode=jwt.verify(token,JSON.stringify(KEY))
+            console.log(decode)
           
             return res.status(200).json({info:decode})
         }catch(err){
-            console.log(err)
+            // console.log(err)
             return res.status(401).json({error:"Authorizatoin failed"})
         }
            

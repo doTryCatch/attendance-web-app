@@ -7,23 +7,23 @@ const options = {
 };
 const dbName = "stock";
 const coll="inventory"
-const client = new MongoClient(url, options);
+
 //create collection
-const newCollection=async (name)=> {
-  let client;
-  try {
-    client = new MongoClient(url, options);
-    await client.connect();
-    const db = client.db(dbName);
-      await db.createCollection(name);
-      console.log(`Collection ${name} created successfully.`);
+// const newCollection=async (name)=> {
+//   let client;
+//   try {
+//     client = new MongoClient(url, options);
+//     await client.connect();
+//     const db = client.db(dbName);
+//       await db.createCollection(name);
+//       console.log(`Collection ${name} created successfully.`);
     
-  } catch (err) {
-    console.error("Error creating collections:", err);
-  } finally {
-    await client.close();
-  }
-}
+//   } catch (err) {
+//     console.error("Error creating collections:", err);
+//   } finally {
+//     await client.close();
+//   }
+// }
 
 //get data
 const get=async(req,res)=>{
