@@ -7,16 +7,17 @@ const options = {
   useUnifiedTopology: true,
 };
 //update data
-const update = async (req, res,dataList) => {
-  console/log("update is going on")
+const update = async (req, res) => {
+  console.log("update is going on")
   let client;
+  const dataList=req.body;
   try {
     client = new MongoClient(url, options);
     await client.connect();
     const db = client.db(dataList[0].branch).collection(dataList[0].section);  
     console.log(dataList[0].branch,dataList[0].section)
     const data= dataList[0].dataToUpdate
-    // console.log(dataList)
+    // console.log(req.body)
 if(Array.isArray(dataList)){
   try {
     for (const all in data){
@@ -65,7 +66,7 @@ const  get=async(req,res)=>{
     await client.connect();
     const admin = client.db().admin();
 const dbInfo = await admin.listDatabases();
-const branch=dbInfo.databases.filter(elem=>elem.name!="local"&&elem.name!="admin")
+const branch=dbInfo.databases.filter(elem=>elem.name!="local"&&elem.name!="admin"&&elem.name!="USERS")
 for (const i in branch){
   const section=await client.db(branch[i].name).listCollections().toArray()
   for(const j in section){
@@ -88,15 +89,17 @@ console.log(Data)
 }
 // insertion operation ..function
 
-const Insert_data = async (req, res, data) => {
+const Insert_data = async (req, res) => {
   let client;
+  const data=req.body
 
   try {
     console.log("inserting the data in database")
     client = new MongoClient(url, options);
     await client.connect();
     const db = client.db(data.branch).collection("section_"+ data.section);
-    
+    console.log("proceeding......")
+    // this area is to insert the data as a new entry to particular department  of particular section
     const result = await db.insertOne({
       name: data.name,
       roll: data.roll,
@@ -115,40 +118,23 @@ console.log("added successfully",data)
   }
 };
 
+
+
+
+
+
+
 export default async function handle_request(req,res){
-  // res.status(200).json("server is working")
-  // get(req,res)
  switch(req.method){
-  case "PUT": update(req,res,req.body)
+  case "PUT": update(req,res)
    break;
    case "GET": get(req,res)
    break;
-   case "POST": Insert_data(req,res,req.body)
+   case "POST": Insert_data(req,res)
    break;
 
   default:
     break;
  }
 }
-
-// export default async function get(req,res){
-//   let client;
-//   try {
-//     client = new MongoClient(uri, options);
-//     await client.connect();
-
-//     const collection = client.db("stock").collection("inventory");
-//     const data = await collection.find().toArray();
-
-//     res.status(200).json(data);
-   
-//   } catch (error) {
-//     console.error("Error connecting to MongoDB:", error);
-//     res.status(500).json({ message: "Internal server error" });
-//   } finally {
-//     if (client) {
-//       client.close();
-//     }
-//   }
-// }
 

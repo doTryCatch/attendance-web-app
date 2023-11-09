@@ -36,10 +36,16 @@ function Layout({ children }) {
       const Token = localStorage.getItem("token_key");
       if (Token) {
         const response = verify(Token);
+        
 
         response.then((res)=>{
-         if(!res) router.push('/login')
-         setLogin(true);
+         if(!res){
+          router.push('/login')
+         } else{
+          console.log(res)
+          setLogin(true)
+         }
+        //  setLogin(true);
 
         })
        
