@@ -1,6 +1,6 @@
 import React,{useEffect,useState} from 'react'
 import {Get,Post, Update} from "../crudOperation"
-import Dashboard from '..'
+import withAuth from "../auth/withAuth"
 
 function Attendence() {
     
@@ -147,4 +147,4 @@ const handleStatus=(e)=>{
   )
 }
 
-export default Attendence
+export default withAuth(Attendence)

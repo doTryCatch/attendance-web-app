@@ -1,6 +1,7 @@
 
 import React,{ useEffect,useState} from "react";
 import {Update,Get} from "../crudOperation"
+import withAuth from "../auth/withAuth"
 
 
 function home() {
@@ -92,4 +93,4 @@ const branch=(e)=>{
   )
 }
 
-export default home
+export default withAuth(home)

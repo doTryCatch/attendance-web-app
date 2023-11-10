@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Post } from "../crudOperation";
-
+import withAuth from "../auth/withAuth"
 import Dashboard from "..";
 
 function register() {
@@ -92,4 +92,4 @@ function register() {
   );
 }
 
-export default register;
+export default withAuth(register);
